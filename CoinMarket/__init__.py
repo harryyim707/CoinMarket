@@ -1,6 +1,7 @@
 from flask import Flask
 from sqlalchemy import create_engine, text
 
+
 def create_app(config_filename):
     app = Flask(__name__)
     app.config.from_pyfile(config_filename)
@@ -9,7 +10,9 @@ def create_app(config_filename):
     app.database = database
 
     # blueprint
-    from .views import index
-    app.register_blueprint(index.bp)
+    from .views import main_views
+    app.register_blueprint(main_views.bp)
+    from .views import login
+    app.register_blueprint(login.bp)
 
     return app
