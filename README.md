@@ -27,8 +27,17 @@ $ source [venv_name]/bin/activate
 ***
 1. Flask-SQLAlchemy
 ``` 
-(venv)$ pip install Flask Flask-SQLAlchemy
+(venv)$ pip install flask-sqlalchemy
 ```
+2. Flask-Migrate
+```
+(venv)$ pip install flask-migrate
+```
+3. DB 실행방법
+   1) 위의 패키지들을 설치한다.
+   2) keys.xml에 db 비밀번호를 입력한다.
+   3) ```(venv)$ flask db init```을 실행한다.
+   4) ```(venv)$ flask db migrate```을 실행한다.
 ### 패키지 관리 팁
 파이썬 프로젝트들은 보통 requirements.txt에 사용하는 패키지명들을 기록하여 아래의 명령어로 쉽게 설치 가능.
 ```
@@ -38,6 +47,3 @@ $ source [venv_name]/bin/activate
 ```
 (venv)$ pip freeze > requirements.txt
 ```
-
-
-for test commit
