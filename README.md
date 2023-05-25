@@ -38,6 +38,14 @@ $ source [venv_name]/bin/activate
    2) keys.xml에 db 비밀번호를 입력한다.
    3) ```(venv)$ flask db init```을 실행한다.
    4) ```(venv)$ flask db migrate```을 실행한다.
+   5) ```(venv)$ flask db upgrade```을 실행한다.
+4. DB 업데이트 오류
+   1) ```(venv)$ flask db heads```로 최종 업데이트된 헤드 확인
+   2) ```(venv)$ flask db current```로 현재 시점 확인
+   3) ```(venv)$ flask db stamp heads```로 최종 리비전으로 설정
+   4) ```(venv)$ flask db current```로 다시 확인
+   5) ```(venv)$ flask db migrate```
+   6) ```(venv)$ flask db upgrade```
 ### 패키지 관리 팁
 파이썬 프로젝트들은 보통 requirements.txt에 사용하는 패키지명들을 기록하여 아래의 명령어로 쉽게 설치 가능.
 ```
