@@ -1,7 +1,8 @@
 from CoinMarket import db
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "user"
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
 

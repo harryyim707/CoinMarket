@@ -1,10 +1,10 @@
-from flask import current_app, Blueprint, render_template
+from flask import Blueprint, render_template
+from flask_login import current_user
 
 bp = Blueprint('index', __name__, url_prefix='/')
 
 
 @bp.route('/')
-@bp.route('/index')
 def index():
     return render_template('index.html')
 
