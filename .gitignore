@@ -209,6 +209,7 @@ Temporary Items
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/*
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -451,5 +452,7 @@ $RECYCLE.BIN/
 
 #Auth Keys
 keys.xml
-
-/migrations/*
+migrations/
+include/
+bin/
+.idea/

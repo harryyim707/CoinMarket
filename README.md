@@ -33,13 +33,17 @@ $ source [venv_name]/bin/activate
 ```
 (venv)$ pip install flask-migrate
 ```
-3. DB 실행방법
+3. Flask-Login
+```
+(venv)$ pip install flask-login
+```
+4. DB 실행방법
    1) 위의 패키지들을 설치한다.
    2) keys.xml에 db 비밀번호를 입력한다.
    3) ```(venv)$ flask db init```을 실행한다.
    4) ```(venv)$ flask db migrate```을 실행한다.
    5) ```(venv)$ flask db upgrade```을 실행한다.
-4. DB 업데이트 오류
+5. DB 업데이트 오류
    1) ```(venv)$ flask db heads```로 최종 업데이트된 헤드 확인
    2) ```(venv)$ flask db current```로 현재 시점 확인
    3) ```(venv)$ flask db stamp heads```로 최종 리비전으로 설정
