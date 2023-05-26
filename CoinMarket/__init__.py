@@ -24,6 +24,10 @@ def create_app(config_filename):
     app.register_blueprint(bp)
     from .views.auth import auth as auth
     app.register_blueprint(auth)
+    from .views.account import acc as acc
+    app.register_blueprint(acc)
+    from .views.personal import per as per
+    app.register_blueprint(per)
 
     # flask-login 적용
     login_manager = LoginManager()

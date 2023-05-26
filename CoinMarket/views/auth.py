@@ -4,6 +4,9 @@ from CoinMarket import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 
+# 회원 가입, 로그인, 로그아웃을 담당하는 기능들의 모음
+
+
 auth = Blueprint('auth', __name__, url_prefix='/')
 
 
@@ -18,7 +21,7 @@ def register():
         usr_pwd = request.form.get("usr_pwd")
         repeat_pwd = request.form.get("repeat_pwd")
         if usr_pwd != repeat_pwd:
-            flash('Password does not match')
+            flash('Password does not match', category="Error")
         user = User.query.filter_by(usr_id=usr_id).first()
         if not user:
             user = User(usr_id=usr_id, usr_nm=usr_nm, usr_pwd=generate_password_hash(usr_pwd), usr_email=usr_email)
@@ -26,7 +29,7 @@ def register():
             db.session.commit()
             return redirect(url_for('index.index'))
         else:
-            flash('Existing user')
+            flash('Existing user', category="Error")
     return render_template('register.html')
 
 
@@ -39,12 +42,12 @@ def login():
         if user:
             if check_password_hash(user.usr_pwd, usr_pwd):
                 login_user(user, remember=True)
-                flash('Logged in Succesfully', category='success')
+                flash('Logged in Succesfully', category='Success')
                 return redirect(url_for('index.index'))
             else:
-                flash('Incorrect Password', category='error')
+                flash('Incorrect Password', category='Error')
         else:
-            flash('Incorrect ID/Password', category='error')
+            flash('Incorrect ID/Password', category='Error')
     return render_template('login.html')
 
 

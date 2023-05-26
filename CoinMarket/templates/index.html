@@ -101,7 +101,8 @@
                     <i class="fa-solid fa-user"></i>
                     <span>Personal</span>
                 </a>
-                <div id="collapsePersonal" class="collapse" aria-labelledby="headingPersonal" data-parent="#accordionSidebar">
+                <div id="collapsePersonal" class="collapse" aria-labelledby="headingPersonal"
+                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Personal:</h6>
                         <a class="collapse-item" href="/my-page">My Page</a>
@@ -110,21 +111,11 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Account Collapse Menu -->
+            <!-- Nav Item - Account -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccount"
-                   aria-expanded="true" aria-controls="collapseAccount">
+                <a class="nav-link" href="/account">
                     <i class="fa-solid fa-wallet"></i>
-                    <span>Account</span>
-                </a>
-                <div id="collapseAccount" class="collapse" aria-labelledby="headingAccount"
-                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Account:</h6>
-                        <a class="collapse-item" href="/add-cash">Add Cash</a>
-                        <a class="collapse-item" href="/withdraw">Withdraw</a>
-                    </div>
-                </div>
+                    <span>Account</span></a>
             </li>
 
             <!-- Divider -->
@@ -139,7 +130,8 @@
         {% if not current_user.is_authenticated %}
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="{{ url_for('static', filename='/img/undraw_rocket.svg') }}" alt="...">
+                <img class="sidebar-card-illustration mb-2"
+                     src="{{ url_for('static', filename='/img/undraw_rocket.svg') }}" alt="...">
                 <p class="text-center mb-2"><strong>Coin Market</strong> is where you can trade your coins freely!</p>
                 <a class="btn btn-success btn-sm" href="/register">Sign Up</a>
             </div>
@@ -167,20 +159,33 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         {% if current_user.is_authenticated %}
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ current_user.usr_nm }}</span>
-                            <img class="img-profile rounded-circle"
-                                 src="{{ url_for('static', filename='/img/undraw_profile.svg') }}">
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ current_user.usr_nm }}</span>
+                                <img class="img-profile rounded-circle"
+                                     src="{{ url_for('static', filename='/img/undraw_profile.svg') }}">
                             </a>
-                        </div>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/my-page">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    My Page
+                                </a>
+                                <a class="dropdown-item" href="/account">
+                                    <i class="fa-solid fa-wallet fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Account
+                                </a>
+                                <a class="dropdown-item" href="/my-history">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    My History
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
                         {% else %}
                             <a class="btn btn-warning btn-sm" href="/login">Sign In</a>
                             <a class="btn btn-success btn-sm" href="/register">Sign Up</a>
@@ -197,99 +202,105 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
                 </div>
 
                 <!-- Content Row -->
                 <div class="row">
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)
+                    {% if current_user.is_authenticated %}
+                        <!-- My Balance -->
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                My Balance
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                {{ current_user.money }} &#8361;
+                                            </div>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-wallet fa-2x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Earnings (Annual)
+
+                        <!-- My Coins -->
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                My Coins
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.coin }}</div>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
+                    {% endif %}
+                    <!-- Recent Sales -->
+                    <div class="{{ c }}" onclick="location.href='/marketplace'" style="cursor:pointer;">
                         <div class="card border-left-info shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Recent Sales
                                         </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-info" role="progressbar"
-                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                         aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_coin }} Coins
+                                            For
+                                            {{ recent_price }} &#8361; / Coin
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        {% if current_user.is_authenticated %}
+                                            <a href="/buy" class="btn btn-info btn-icon-split">
+                                                <span class="text">Buy</span>
+                                            </a>
+                                        {% else %}
+                                            <i class="fa-solid fa-store fa-2x text-gray-300"></i>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
+                    <!-- Current Coin Price -->
+                    <div class="{{ c }}" onclick="location.href='/marketplace'" style="cursor:pointer;">
                         <div class="card border-left-warning shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pending Requests
+                                            Current Coin Price
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            {{ latest_price }} &#8361;
+                                        </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        <i class="fa-solid fa-money-bill-wave fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Content Row -->
 
@@ -494,7 +505,8 @@
                             <div class="card-body">
                                 <div class="text-center">
                                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                         src="{{ url_for('static', filename='/img/undraw_posting_photo.svg') }}" alt="...">
+                                         src="{{ url_for('static', filename='/img/undraw_posting_photo.svg') }}"
+                                         alt="...">
                                 </div>
                                 <p>Add some quality, svg illustrations to your project courtesy of <a
                                         target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
@@ -532,7 +544,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+                    <span>Copyright &copy; SW Engineering Team 7, 2023</span>
                 </div>
             </div>
         </footer>
@@ -564,6 +576,35 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-primary" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Message -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Warning!</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="flashes">
+                {% with messages = get_flashed_messages(category_filter=["Error"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <ul class="flash">
+                                <li style="list-style: none;">{{ message }}</li>
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Confirm</button>
             </div>
         </div>
     </div>
