@@ -1,0 +1,374 @@
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Message -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Warning!</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="flashes">
+                {% with messages = get_flashed_messages(category_filter=["Error"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <ul class="flash">
+                                <li style="list-style: none;">{{ message }}</li>
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Money Modal-->
+<div class="modal fade" id="addMoneyModal" tabindex="-1" role="dialog"
+     aria-labelledby="addMoneyModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMoneyModalLabel">Add Money</h5>
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure to add money?
+                <div class="card bg-light text-gray-800 shadow align-content-center">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                Balance
+                                <div class="h5 mb-0 font-weight-bold text-success">
+                                    {{ current_user.money }} &#8361;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-light text-gray-800 shadow align-content-center">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <form class="addmoney" method="post"
+                                      action="/account/add-money" id="addmoney">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"
+                                               id="money"
+                                               aria-describedby="number"
+                                               placeholder="Amount of Money"
+                                               name="money"
+                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Cancel
+                </button>
+                <button type="submit" class="btn btn-info" form="addmoney">Add
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Withdraw Money Modal-->
+<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog"
+     aria-labelledby="withdrawModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="withdrawModalLabel">Withdraw Money</h5>
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure to withdraw money?
+                <div class="card bg-light text-gray-800 shadow align-content-center">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                Balance
+                                <div class="h5 mb-0 font-weight-bold text-success">
+                                    {{ current_user.money }} &#8361;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-light text-gray-800 shadow align-content-center">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <form class="money" method="post"
+                                      action="/account/withdraw" id="withdraw">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"
+                                               id="money"
+                                               aria-describedby="number"
+                                               placeholder="Amount of Money"
+                                               name="money"
+                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Cancel
+                </button>
+                <button type="submit" class="btn btn-warning" form="withdraw">Withdraw
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sell Modal-->
+<div class="modal fade" id="sellModal" tabindex="-1" role="dialog"
+     aria-labelledby="sellModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sellModalLabel">Sell Coins</h5>
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure to sell coins?
+                <div class="card bg-light text-gray-800 shadow align-content-center">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                Coins
+                                <div class="h5 mb-0 font-weight-bold text-success">
+                                    {{ current_user.coin }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-light text-gray-800 shadow align-content-center">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <form class="money" method="post"
+                                      action="/sell" id="sell">
+                                    <div class="form-group">
+                                        {% if current_user.is_authenticated and current_user.coin > 0 %}
+                                            <input type="text" class="form-control"
+                                                   id="coin"
+                                                   aria-describedby="number"
+                                                   placeholder="Number of Coins"
+                                                   name="coin"
+                                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                            <input type="text" class="form-control"
+                                                   id="money"
+                                                   aria-describedby="number"
+                                                   placeholder="Amount of Money"
+                                                   name="money"
+                                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        {% else %}
+                                            <input type="text" class="form-control"
+                                                   id="coin"
+                                                   aria-describedby="number"
+                                                   placeholder="Number of Coins"
+                                                   name="coin" readonly>
+                                            <input type="text" class="form-control"
+                                                   id="money"
+                                                   aria-describedby="number"
+                                                   placeholder="Amount of Money"
+                                                   name="money"
+                                                   readonly>
+                                        {% endif %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Cancel
+                </button>
+                <button type="submit" class="btn btn-warning" form="sell">Sell
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='/vendor/chart.js/Chart.min.js') }}"></script>
+<script type="text/javascript">
+    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#858796';
+
+    function number_format(number, decimals, dec_point, thousands_sep) {
+        // *     example: number_format(1234.56, 2, ',', ' ');
+        // *     return: '1 234,56'
+        number = (number + '').replace(',', '').replace(' ', '');
+        var n = !isFinite(+number) ? 0 : +number,
+            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+            s = '',
+            toFixedFix = function (n, prec) {
+                var k = Math.pow(10, prec);
+                return '' + Math.round(n * k) / k;
+            };
+        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+        }
+        if ((s[1] || '').length < prec) {
+            s[1] = s[1] || '';
+            s[1] += new Array(prec - s[1].length + 1).join('0');
+        }
+        return s.join(dec);
+    }
+
+    // Area Chart Example
+    var ctx = document.getElementById("currencyChart");
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ xlabels }},
+            datasets: [{
+                label: "Currency",
+                lineTension: 0.3,
+                backgroundColor: "rgba(78, 115, 223, 0.05)",
+                borderColor: "rgba(78, 115, 223, 1)",
+                pointRadius: 3,
+                pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: {{ dataset }},
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'date'
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 7
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        maxTicksLimit: 5,
+                        padding: 10,
+                        // Include a dollar sign in the ticks
+                        callback: function (value, index, values) {
+                            return '₩' + number_format(value);
+                        }
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+                callbacks: {
+                    label: function (tooltipItem, chart) {
+                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                        return datasetLabel + ': ₩' + number_format(tooltipItem.yLabel);
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="{{ url_for('static', filename='/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{{ url_for('static', filename='/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{{ url_for('static', filename='/js/sb-admin-2.min.js') }}"></script>
+
+<!-- Page level plugins -->
+<script src="{{ url_for('static', filename='/vendor/chart.js/Chart.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='/js/modalevent.js') }}"></script>

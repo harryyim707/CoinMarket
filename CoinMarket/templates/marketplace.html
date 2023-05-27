@@ -1,276 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block title %}Marketplace{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
 
-<head>
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Coin Market -Marketplace</title>
-    <script src="https://kit.fontawesome.com/cb0f96d02d.js" crossorigin="anonymous"></script>
-
-    <!-- Custom fonts for this template-->
-    <link href="{{ url_for('static', filename='/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
-          type="text/css">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="{{ url_for('static', filename='/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-
-</head>
-
-<body id="page-top">
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fa-solid fa-bitcoin-sign"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">Coin Market</div>
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="/">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Functions
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Marketplace</h1>
         </div>
 
-        <!-- Nav Item - Trade Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrade"
-               aria-expanded="true" aria-controls="collapseTrade">
-                <i class="fa-solid fa-comments-dollar"></i>
-                <span>Trade</span>
-            </a>
-            <div id="collapseTrade" class="collapse" aria-labelledby="headingTrade" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Trade:</h6>
-                    <a class="collapse-item" href="/marketplace">Marketplace</a>
-                    {% if current_user.is_authenticated %}
-                        <a class="collapse-item" href="/sell">Sell</a>
-                    {% endif %}
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="/charts">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        {% if current_user.is_authenticated %}
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Personal
-            </div>
-
-            <!-- Nav Item - Personal Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePersonal"
-                   aria-expanded="true" aria-controls="collapsePersonal">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Personal</span>
-                </a>
-                <div id="collapsePersonal" class="collapse" aria-labelledby="headingPersonal"
-                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Personal:</h6>
-                        <a class="collapse-item" href="/my-page">My Page</a>
-                        <a class="collapse-item" href="/my-history">My History</a>
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col mb-4">
+                <div class="card bg-light text-gray-800 shadow align-content-center">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                We Have
+                                <div class="h5 mb-0 font-weight-bold text-success">
+                                    {{ left_coin }}
+                                </div>
+                                Coins Left
+                            </div>
+                            <div class="col-auto">
+                                {% if current_user.is_authenticated %}
+                                    {% if left_coin > 0 %}
+                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
+                                           data-target="#buyModalMarket">
+                                            <span class="text">Buy</span>
+                                        </a>
+                                    {% else %}
+                                        <a class="btn btn-secondary btn-icon-split disabled">
+                                            <span class="text">Buy</span>
+                                        </a>
+                                    {% endif %}
+                                    <!-- Buy ModalMarket-->
+                                    <div class="modal fade" id="buyModalMarket" tabindex="-1" role="dialog"
+                                         aria-labelledby="buyModalMarketLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="buyModalMarketLabel">Buy Coins</h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Are you sure to Buy Coins?
+                                                    <div class="card bg-light text-gray-800 shadow align-content-center">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    Balance
+                                                                    <div class="h5 mb-0 font-weight-bold text-success">
+                                                                        {{ current_user.money }} &#8361;
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card bg-light text-gray-800 shadow align-content-center">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    Coins
+                                                                    <form class="money" method="post"
+                                                                          action="/buy/0" id="buymarket">
+                                                                        <div class="form-group">
+                                                                            {% if current_user.money > 0 %}
+                                                                                <input type="text" class="form-control"
+                                                                                       id="number"
+                                                                                       aria-describedby="number"
+                                                                                       placeholder="Number of Coins"
+                                                                                       name="number"
+                                                                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                                                       maxlength="3">
+                                                                            {% else %}
+                                                                                <input type="text" class="form-control"
+                                                                                       placeholder="Number of Coins"
+                                                                                       readonly>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <hr>
+                                                                        <div class="row no-gutters align-items-center">
+                                                                            <div class="col mr-2" id="total">
+                                                                                <div class="h5 mb-0 font-weight-bold text-danger">
+                                                                                    &times; 100 &#8361; / Coin
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button"
+                                                            data-dismiss="modal">Cancel
+                                                    </button>
+                                                    {% if current_user.money <= 0 %}
+                                                        <a class="btn btn-primary disabled">Buy
+                                                        </a>
+                                                    {% else %}
+                                                        <button type="submit" class="btn btn-primary"
+                                                                form="buymarket">Buy
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Account -->
-            <li class="nav-item">
-                <a class="nav-link" href="/account">
-                    <i class="fa-solid fa-wallet"></i>
-                    <span>Account</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-        {% endif %}
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-        {% if not current_user.is_authenticated %}
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2"
-                     src="{{ url_for('static', filename='/img/undraw_rocket.svg') }}" alt="...">
-                <p class="text-center mb-2"><strong>Coin Market</strong> is where you can trade your coins freely!</p>
-                <a class="btn btn-success btn-sm" href="/register">Sign Up</a>
             </div>
-        {% endif %}
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
-        <div id="content">
-
-            <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        {% if current_user.is_authenticated %}
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ current_user.usr_nm }}</span>
-                                <img class="img-profile rounded-circle"
-                                     src="{{ url_for('static', filename='/img/undraw_profile.svg') }}">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="/my-page">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    My Page
-                                </a>
-                                <a class="dropdown-item" href="/account">
-                                    <i class="fa-solid fa-wallet fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Account
-                                </a>
-                                <a class="dropdown-item" href="/my-history">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    My History
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        {% else %}
-                            <a class="btn btn-warning btn-sm" href="/login">Sign In</a>
-                            <a class="btn btn-success btn-sm" href="/register">Sign Up</a>
-                        {% endif %}
-                    </li>
-                </ul>
-
-            </nav>
-            <!-- End of Topbar -->
-
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+        </div>
+        <!-- Section Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Overview</h1>
+        </div>
+        <!-- Overview -->
+        <div class="row">
+            <!-- Currency Chart -->
+            <div class="{{ c }} col">
+                <div class="card shadow mb-4" onclick="location.href='/charts'" style="cursor:pointer;">
+                    <!-- Card Header -->
+                    <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Prices Overview</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="currencyChart"></canvas>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Content Row -->
-                <div class="row">
-                    {% if current_user.is_authenticated %}
-                        <!-- My Balance -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                My Balance
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                {{ current_user.money }} &#8361;
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa-solid fa-wallet fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- My Coins -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                My Coins
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.coin }}</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    {% endif %}
-                    <!-- Recent Sales -->
-                    <div class="{{ c }}" onclick="location.href='/marketplace'" style="cursor:pointer;">
-                        <div class="card border-left-info shadow h-100 py-2">
+            {% if current_user.is_authenticated %}
+                <div class="col-xl-4 col">
+                    <!-- My Balance -->
+                    <div class="col mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            Recent Sales
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            My Balance
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_coin }} Coins
-                                            For
-                                            {{ recent_price }} &#8361; / Coin
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            {{ current_user.money }} &#8361;
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        {% if current_user.is_authenticated %}
-                                            <a href="/buy" class="btn btn-info btn-icon-split">
-                                                <span class="text">Buy</span>
+                                        <a href="#" class="btn btn-info btn-icon-split" data-toggle="modal"
+                                           data-target="#addMoneyModal">
+                                            <span class="text">Add</span>
+                                        </a>
+                                        {% if current_user.money > 0 %}
+                                            <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal"
+                                               data-target="#withdrawModal">
+                                                <span class="text">Withdraw</span>
                                             </a>
                                         {% else %}
-                                            <i class="fa-solid fa-store fa-2x text-gray-300"></i>
+                                            <a class="btn btn-warning btn-icon-split disabled">
+                                                <span class="text">Withdraw</span>
+                                            </a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -278,8 +184,40 @@
                         </div>
                     </div>
 
+
+                    <!-- My Coins -->
+                    <div class="col mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            My Coins
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.coin }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        {% if current_user.is_authenticated %}
+                                            {% if current_user.coin > 0 %}
+                                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal"
+                                                   data-target="#sellModal">
+                                                    <span class="text">Sell</span>
+                                                </a>
+                                            {% else %}
+                                                <a href="#" class="btn btn-secondary btn-icon-split disabled">
+                                                    <span class="text">Sell</span>
+                                                </a>
+                                            {% endif %}
+                                        {% else %}
+                                            <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Current Coin Price -->
-                    <div class="{{ c }}" onclick="location.href='/marketplace'" style="cursor:pointer;">
+                    <div class="col mb-4" onclick="location.href='/marketplace'" style="cursor:pointer;">
                         <div class="card border-left-warning shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -299,333 +237,203 @@
                         </div>
                     </div>
                 </div>
-
-
-                <!-- Content Row -->
-
+            {% endif %}
+        </div>
+        <!-- Section Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">On Sale</h1>
+        </div>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Content Column -->
+            <div class="col mb-4">
+                <!-- On Sale -->
                 <div class="row">
-
-                    <!-- Area Chart -->
-                    <div class="col-xl-8 col-lg-7">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    {% for item in on_sale %}
+                        {% if current_user.is_authenticated %}
+                            {% if item.seller_id == current_user.usr_id %}
+                                <div class="col-lg-3 mb-4">
+                                    <a class="card bg-success text-white shadow" href="#" data-toggle="modal"
+                                       data-target="#updateModal" id="sellcard">
+                                        <div class="card-body">
+                                            {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                            <div class="text-white-50 small">
+                                                Seller: {{ item.seller_id.strip("''") }}</div>
+                                        </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                         aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
                                 </div>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="myAreaChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pie Chart -->
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            {% else %}
+                                <div class="col-lg-3 mb-4">
+                                    <a class="card bg-info text-white shadow" href="#" data-toggle="modal"
+                                       data-target="#buyModal" id="sellcard">
+                                        <div class="card-body">
+                                            {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                            <div class="text-white-50 small">
+                                                Seller: {{ item.seller_id.strip("''") }}</div>
+                                        </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                         aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            {% endif %}
+                            <!-- Buy Modal-->
+                            <div class="modal fade" id="buyModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="buyModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="buyModalLabel">Buy Coins</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">Are you sure to Buy Coins?
+                                            <div class="card bg-light text-gray-800 shadow align-content-center">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            Balance
+                                                            <div class="h5 mb-0 font-weight-bold text-success">
+                                                                {{ current_user.money }} &#8361;
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card bg-light text-gray-800 shadow align-content-center">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            Coins
+                                                            <div class="h5 mb-0 font-weight-bold text-success">
+                                                                {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                                                = {{ item.coin_nm*item.price }} &#8361;
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel
+                                            </button>
+                                            {% if current_user.money > item.coin_nm * item.price %}
+                                                <a class="btn btn-primary" href="/buy/{{ item.id }}">Buy</a>
+                                            {% else %}
+                                                <a class="btn btn-primary disabled">Buy</a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!-- Content Column -->
-                    <div class="col-lg-6 mb-4">
-
-                        <!-- Project Card Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="small font-weight-bold">Server Migration <span
-                                        class="float-right">20%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Sales Tracking <span
-                                        class="float-right">40%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Customer Database <span
-                                        class="float-right">60%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar" role="progressbar" style="width: 60%"
-                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Payout Details <span
-                                        class="float-right">80%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Account Setup <span
-                                        class="float-right">Complete!</span></h4>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Color System -->
-                        <div class="row">
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-primary text-white shadow">
-                                    <div class="card-body">
-                                        Primary
-                                        <div class="text-white-50 small">#4e73df</div>
+                            <!-- Update Modal -->
+                            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="updateModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateModalLabel">Update Info</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">Are you sure to update the information?
+                                            <div class="card bg-light text-gray-800 shadow align-content-center">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            Balance
+                                                            <div class="h5 mb-0 font-weight-bold text-success">
+                                                                {{ current_user.money }} &#8361;
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mr-2">
+                                                            Coins Left
+                                                            <div class="h5 mb-0 font-weight-bold text-primary">
+                                                                {{ current_user.coin }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card bg-light text-gray-800 shadow align-content-center">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            Original
+                                                            <div class="h5 mb-0 font-weight-bold text-success">
+                                                                {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                                                = {{ item.coin_nm*item.price }} &#8361;
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card bg-light text-gray-800 shadow align-content-center">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            Update
+                                                            <form class="money" method="post"
+                                                                  action="/update-coin/{{ item.id }}" id="update-coin">
+                                                                <div class="form-group">
+                                                                    {% if current_user.is_authenticated and current_user.coin > 0 %}
+                                                                        <input type="text" class="form-control"
+                                                                               id="coin"
+                                                                               aria-describedby="number"
+                                                                               placeholder="{{ item.coin_nm }}"
+                                                                               name="coin"
+                                                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                                                        <input type="text" class="form-control"
+                                                                               id="money"
+                                                                               aria-describedby="number"
+                                                                               placeholder="{{ item.price }}"
+                                                                               name="money"
+                                                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                                                    {% else %}
+                                                                        <input type="text" class="form-control"
+                                                                               id="coin"
+                                                                               aria-describedby="number"
+                                                                               placeholder="{{ item.coin_nm }}"
+                                                                               name="coin" readonly>
+                                                                        <input type="text" class="form-control"
+                                                                               id="money"
+                                                                               aria-describedby="number"
+                                                                               placeholder="{{ item.price }}"
+                                                                               name="money"
+                                                                               readonly>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-danger" form="update-coin" onclick="javascript: form.action='/delete-coin/{{ item.id }}'">Delete</button>
+                                            <button type="submit" class="btn btn-warning" form="update-coin">Update
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-success text-white shadow">
-                                    <div class="card-body">
-                                        Success
-                                        <div class="text-white-50 small">#1cc88a</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
+                        {% else %}
+                            <div class="col-lg-3 mb-4">
                                 <div class="card bg-info text-white shadow">
                                     <div class="card-body">
-                                        Info
-                                        <div class="text-white-50 small">#36b9cc</div>
+                                        {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                        <div class="text-white-50 small">Seller: {{ item.seller_id.strip("''") }}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-warning text-white shadow">
-                                    <div class="card-body">
-                                        Warning
-                                        <div class="text-white-50 small">#f6c23e</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-danger text-white shadow">
-                                    <div class="card-body">
-                                        Danger
-                                        <div class="text-white-50 small">#e74a3b</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-secondary text-white shadow">
-                                    <div class="card-body">
-                                        Secondary
-                                        <div class="text-white-50 small">#858796</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-light text-black shadow">
-                                    <div class="card-body">
-                                        Light
-                                        <div class="text-black-50 small">#f8f9fc</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-dark text-white shadow">
-                                    <div class="card-body">
-                                        Dark
-                                        <div class="text-white-50 small">#5a5c69</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-6 mb-4">
-
-                        <!-- Illustrations -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                         src="{{ url_for('static', filename='/img/undraw_posting_photo.svg') }}"
-                                         alt="...">
-                                </div>
-                                <p>Add some quality, svg illustrations to your project courtesy of <a
-                                        target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                    constantly updated collection of beautiful svg images that you can use
-                                    completely free and without attribution!</p>
-                                <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                    unDraw &rarr;</a>
-                            </div>
-                        </div>
-
-                        <!-- Approach -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                            </div>
-                            <div class="card-body">
-                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                    CSS bloat and poor page performance. Custom CSS classes are used to create
-                                    custom components and custom utility classes.</p>
-                                <p class="mb-0">Before working with this theme, you should become familiar with the
-                                    Bootstrap framework, especially the utility classes.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; SW Engineering Team 7, 2023</span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-        </footer>
-        <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="/logout">Logout</a>
-            </div>
         </div>
     </div>
-</div>
-
-<!-- Error Message -->
-<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="messageModalLabel">Warning!</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body" id="flashes">
-                {% with messages = get_flashed_messages(category_filter=["Error"]) %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <ul class="flash">
-                                <li style="list-style: none;">{{ message }}</li>
-                            </ul>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="{{ url_for('static', filename='/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="{{ url_for('static', filename='/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="{{ url_for('static', filename='/js/sb-admin-2.min.js') }}"></script>
-
-<!-- Page level plugins -->
-<script src="{{ url_for('static', filename='/vendor/chart.js/Chart.min.js') }}"></script>
-
-<!-- Page level custom scripts -->
-<script src="{{ url_for('static', filename='/js/demo/chart-area-demo.js') }}"></script>
-<script src="{{ url_for('static', filename='/js/demo/chart-pie-demo.js') }}"></script>
-
-</body>
-
-</html>
+    <!-- /.container-fluid -->
+{% endblock %}

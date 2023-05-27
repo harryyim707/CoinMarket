@@ -9,3 +9,4 @@ class Sell(db.Model):
     seller_id = db.Column(db.String(100))
     coin_nm = db.Column(db.Integer)
     price = db.Column(db.Integer)
+    sold_out = db.Column(db.Boolean, default=False)

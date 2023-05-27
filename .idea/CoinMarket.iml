@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="cb0f96d02d" level="application" />
+    <orderEntry type="library" name="jquery-3.4.1" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="GOOGLE" />

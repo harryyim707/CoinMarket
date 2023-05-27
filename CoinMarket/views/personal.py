@@ -13,11 +13,3 @@ per = Blueprint('personal', __name__, url_prefix='/')
 def my_page():
     history = History.query.join(Sell, History.sell_id==Sell.id).add_columns(Sell.coin_nm, Sell.price).filter((History.seller_id == current_user.usr_id) | (History.buyer_id == current_user.usr_id)).all()
     return render_template('mypage.html', history_list=history)
-
-
-@per.route('/my-history')
-@login_required
-def my_history():
-    history = History.query.join(Sell, History.sell_id == Sell.id).add_columns(Sell.coin_nm, Sell.price).filter(
-        (History.seller_id == current_user.usr_id) | (History.buyer_id == current_user.usr_id)).all()
-    return render_template('myhistory.html', history_list=history)
