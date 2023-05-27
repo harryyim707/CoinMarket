@@ -27,7 +27,7 @@ def register():
             user = User(usr_id=usr_id, usr_nm=usr_nm, usr_pwd=generate_password_hash(usr_pwd), usr_email=usr_email)
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for('index.index'))
+            flash('Signed Up Successfully',category="Success" )
         else:
             flash('Existing user', category="Error")
     return render_template('register.html')

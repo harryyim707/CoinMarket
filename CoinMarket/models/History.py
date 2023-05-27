@@ -7,5 +7,5 @@ class History(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     sell_id = db.Column(db.Integer, db.ForeignKey('sell.id', ondelete='CASCADE'))
-    seller_id = db.Column(db.Integer)
-    buyer_id = db.Column(db.Integer)
+    seller_id = db.Column(db.String(100))
+    buyer_id = db.Column(db.String(100))

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CoinMarket - {{ current_user.usr_nm }}'s Page</title>
+    <title>CoinMarket - {{ current_user.usr_nm }}'s History</title>
     <script src="https://kit.fontawesome.com/cb0f96d02d.js" crossorigin="anonymous"></script>
 
     <!-- Custom fonts for this template-->
@@ -198,47 +198,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">{{ current_user.usr_nm }}'s Page</h1>
-                <div class="row">
-                    <!-- My Balance -->
-                    <div class="col col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            My Balance
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.money }}
-                                            &#8361;
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-wallet fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- My Coins -->
-                    <div class="col col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            My Coins
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.coin }}</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="h3 mb-4 text-gray-800">{{ current_user.usr_nm }}'s History</h1>
                 <!-- My History Table -->
                 <div class="card shadow mb-4">
                         <div class="card-header py-3" onclick="location.href='/myhistory'" style="cursor:pointer;">

@@ -11,7 +11,7 @@ def index():
     last = History.query.order_by(History.id.desc()).first()
     latest = 0
     if last is not None:
-        sell = Sell.query.filter(id == last.sell_id)
+        sell = Sell.query.filter_by(id = last.sell_id).first()
         latest = sell.price
     recent = Sell.query.order_by(Sell.id.desc()).first()
     recent_coin, recent_price = 0, 0
