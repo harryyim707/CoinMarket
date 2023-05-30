@@ -30,8 +30,6 @@ def create_app(config_filename):
     app.register_blueprint(per)
     from .views.trade import tr as tr
     app.register_blueprint(tr)
-    from .views.flow import flow as flow
-    app.register_blueprint(flow)
 
     # flask-login 적용
     login_manager = LoginManager()

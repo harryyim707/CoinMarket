@@ -22,7 +22,7 @@
                             <div class="col mr-2">
                                 We Have
                                 <div class="h5 mb-0 font-weight-bold text-success">
-                                    {{ left_coin }}
+                                    {{ "{:,}".format(left_coin) }}
                                 </div>
                                 Coins Left
                             </div>
@@ -58,7 +58,7 @@
                                                                 <div class="col mr-2">
                                                                     Balance
                                                                     <div class="h5 mb-0 font-weight-bold text-success">
-                                                                        {{ current_user.money }} &#8361;
+                                                                        {{ "{:,}".format(current_user.money) }} &#8361;
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -133,11 +133,11 @@
         <div class="row">
             <!-- Currency Chart -->
             <div class="{{ c }} col">
-                <div class="card shadow mb-4" onclick="location.href='/charts'" style="cursor:pointer;">
+                <div class="card shadow mb-4">
                     <!-- Card Header -->
                     <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Prices Overview</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Currency Chart</h6>
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
@@ -160,7 +160,7 @@
                                             My Balance
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            {{ current_user.money }} &#8361;
+                                            {{ "{:,}".format(current_user.money) }} &#8361;
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -194,7 +194,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             My Coins
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.coin }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "{:,}".format(current_user.coin) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         {% if current_user.is_authenticated %}
@@ -226,7 +226,7 @@
                                             Current Coin Price
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            {{ latest_price }} &#8361;
+                                            {{ "{:,}".format(latest_price) }} &#8361; / Coin
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -256,7 +256,7 @@
                                     <a class="card bg-success text-white shadow" href="#" data-toggle="modal"
                                        data-target="#updateModal{{ item.id }}" id="sellcard">
                                         <div class="card-body">
-                                            {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                            {{ "{:,}".format(item.coin_nm) }} Coins &times; {{ "{:,}".format(item.price) }} &#8361;
                                             <div class="text-white-50 small">
                                                 Seller: {{ item.seller_id.strip("''") }}</div>
                                         </div>
@@ -267,7 +267,7 @@
                                     <a class="card bg-info text-white shadow" href="#" data-toggle="modal"
                                        data-target="#buyModal{{ item.id }}" id="sellcard">
                                         <div class="card-body">
-                                            {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                            {{ "{:,}".format(item.coin_nm) }} Coins &times; {{ "{:,}".format(item.price) }} &#8361;
                                             <div class="text-white-50 small">
                                                 Seller: {{ item.seller_id.strip("''") }}</div>
                                         </div>
@@ -278,7 +278,7 @@
                             <div class="col-lg-3 mb-4">
                                 <div class="card bg-info text-white shadow">
                                     <div class="card-body">
-                                        {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
+                                        {{ "{:,}".format(item.coin_nm) }} Coins &times; {{ "{:,}".format(item.price) }} &#8361;
                                         <div class="text-white-50 small">Seller: {{ item.seller_id.strip("''") }}</div>
                                     </div>
                                 </div>

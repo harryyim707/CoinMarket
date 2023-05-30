@@ -14,7 +14,7 @@ def index():
     if last is not None:
         sell = Sell.query.filter_by(id = last.sell_id).first()
         latest_price = sell.price
-    recent_coin = Sell.query.order_by(Sell.id.desc()).first()
+    recent_coin = Sell.query.order_by(Sell.id.desc()).filter_by(sold_out=0).first()
     if not recent_coin:
         recent_coin = Sell(id=0, seller_id=0, coin_nm=0, price=0, sold_out=0)
     recent_price = 0
@@ -28,9 +28,7 @@ def index():
     label = "Coin Prices"
     xlabels = []
     dataset = []
-    i = 1
     for his, price in history:
-        xlabels.append(i)
+        xlabels.append(his.datetime.strftime("%d %b %Y %H:%M:%S"))
         dataset.append(price)
-        i += 1
     return render_template('index.html', **locals())

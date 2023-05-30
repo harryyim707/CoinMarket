@@ -31,7 +31,7 @@ def marketplace():
     xlabels = []
     dataset = []
     for his, price in history:
-        xlabels.append(his.id)
+        xlabels.append(his.datetime.strftime("%d %b %Y %H:%M:%S"))
         dataset.append(price)
     return render_template('marketplace.html', **locals())
 

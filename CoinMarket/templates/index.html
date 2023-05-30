@@ -26,7 +26,7 @@
                                         My Balance
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        {{ current_user.money }} &#8361;
+                                        {{ "{:,}".format(current_user.money) }} &#8361;
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -47,7 +47,7 @@
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                         My Coins
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.coin }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "{:,}".format(current_user.coin) }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
@@ -68,9 +68,9 @@
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Recent Sales
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_coin.coin_nm }} Coins
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "{:,}".format(recent_coin.coin_nm) }} Coins
                                     &times;
-                                    {{ recent_price }} &#8361;
+                                    {{ "{:,}".format(recent_price) }} &#8361;
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -105,7 +105,7 @@
                                                             <div class="col mr-2">
                                                                 Balance
                                                                 <div class="h5 mb-0 font-weight-bold text-success">
-                                                                    {{ current_user.money }} &#8361;
+                                                                    {{ "{:,}".format(current_user.money) }} &#8361;
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -117,10 +117,10 @@
                                                             <div class="col mr-2">
                                                                 Coins
                                                                 <div class="h5 mb-0 font-weight-bold text-success">
-                                                                    {{ recent_coin.coin_nm }} Coins
-                                                                    &times; {{ recent_coin.price }}
+                                                                    {{ "{:,}".format(recent_coin.coin_nm) }} Coins
+                                                                    &times; {{ "{:,}".format(recent_coin.price) }}
                                                                     &#8361;
-                                                                    = {{ recent_coin.coin_nm*recent_coin.price }}
+                                                                    = {{ "{:,}".format(recent_coin.coin_nm*recent_coin.price) }}
                                                                     &#8361;
                                                                 </div>
                                                             </div>
@@ -162,13 +162,13 @@
                                                             <div class="col mr-2">
                                                                 Balance
                                                                 <div class="h5 mb-0 font-weight-bold text-success">
-                                                                    {{ current_user.money }} &#8361;
+                                                                    {{ "{:,}".format(current_user.money) }} &#8361;
                                                                 </div>
                                                             </div>
                                                             <div class="col mr-2">
                                                                 Coins Left
                                                                 <div class="h5 mb-0 font-weight-bold text-primary">
-                                                                    {{ current_user.coin }}
+                                                                    {{ "{:,}".format(current_user.coin) }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -180,9 +180,9 @@
                                                             <div class="col mr-2">
                                                                 Original
                                                                 <div class="h5 mb-0 font-weight-bold text-success">
-                                                                    {{ recent_coin.coin_nm }} Coins
-                                                                    &times; {{ recent_coin.price }} &#8361;
-                                                                    = {{ recent_coin.coin_nm*recent_coin.price }}
+                                                                    {{ "{:,}".format(recent_coin.coin_nm) }} Coins
+                                                                    &times; {{ "{:,}".format(recent_coin.price) }} &#8361;
+                                                                    = {{ "{:,}".format(recent_coin.coin_nm*recent_coin.price) }}
                                                                     &#8361;
                                                                 </div>
                                                             </div>
@@ -202,25 +202,25 @@
                                                                             <input type="text" class="form-control"
                                                                                    id="coin"
                                                                                    aria-describedby="number"
-                                                                                   placeholder="{{ recent_coin.coin_nm }}"
+                                                                                   placeholder="{{ "{:,} Coins".format(recent_coin.coin_nm) }}"
                                                                                    name="coin"
                                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                                             <input type="text" class="form-control"
                                                                                    id="money"
                                                                                    aria-describedby="number"
-                                                                                   placeholder="{{ recent_coin.price }}"
+                                                                                   placeholder="{{ "{:,} ₩".format(recent_coin.price) }}"
                                                                                    name="money"
                                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                                         {% else %}
                                                                             <input type="text" class="form-control"
                                                                                    id="coin"
                                                                                    aria-describedby="number"
-                                                                                   placeholder="{{ recent_coin.coin_nm }}"
+                                                                                   placeholder="{{ "{:,} Coins".format(recent_coin.coin_nm) }}"
                                                                                    name="coin" readonly>
                                                                             <input type="text" class="form-control"
                                                                                    id="money"
                                                                                    aria-describedby="number"
-                                                                                   placeholder="{{ recent_coin.price }}"
+                                                                                   placeholder="{{ "{:,} ₩".format(recent_coin.price) }}"
                                                                                    name="money"
                                                                                    readonly>
                                                                         {% endif %}
@@ -259,9 +259,9 @@
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Recent Sales
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ recent_coin.coin_nm }} Coins
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "{:,}".format(recent_coin.coin_nm) }} Coins
                                     &times;
-                                    {{ recent_price }} &#8361;
+                                    {{ "{:,}".format(recent_price) }} &#8361;
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -283,7 +283,7 @@
                                     Current Coin Price
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{ latest_price }} &#8361;
+                                    {{ "{:,}".format(latest_price) }} &#8361;
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -302,7 +302,7 @@
 
             <!-- Currency Chart -->
             <div class="col-xl-12 col-lg-7">
-                <div class="card shadow mb-4" onclick="location.href='/charts'" style="cursor:pointer;">
+                <div class="card shadow mb-4" onclick="location.href='/marketplace'" style="cursor:pointer;">
                     <!-- Card Header -->
                     <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

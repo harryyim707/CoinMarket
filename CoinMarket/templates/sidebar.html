@@ -20,25 +20,13 @@
     </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Functions
-    </div>
+    <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Marketplace -->
     <li class="nav-item">
         <a class="nav-link" href="/marketplace">
             <i class="fa-solid fa-comments-dollar"></i>
             <span>Marketplace</span></a>
-    </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="/charts">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
     </li>
 
     <!-- Divider -->
@@ -75,7 +63,7 @@
 
     {% if not current_user.is_authenticated %}
         <!-- Sidebar Message -->
-        <div class="sidebar-card d-none d-lg-flex">
+        <div class="sidebar-card d-none d-lg-flex" id="sidebarCard">
             <img class="sidebar-card-illustration mb-2"
                  src="{{ url_for('static', filename='/img/undraw_rocket.svg') }}" alt="...">
             <p class="text-center mb-2"><strong>Coin Market</strong> is where you can trade your coins freely!</p>

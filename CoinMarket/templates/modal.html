@@ -47,216 +47,27 @@
     </div>
 </div>
 <!-- Add Money Modal-->
-<div class="modal fade" id="addMoneyModal" tabindex="-1" role="dialog"
-     aria-labelledby="addMoneyModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addMoneyModalLabel">Add Money</h5>
-                <button class="close" type="button" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Are you sure to add money?
-                <div class="card bg-light text-gray-800 shadow align-content-center">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                Balance
-                                <div class="h5 mb-0 font-weight-bold text-success">
-                                    {{ current_user.money }} &#8361;
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-light text-gray-800 shadow align-content-center">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <form class="addmoney" method="post"
-                                      action="/account/add-money" id="addmoney">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control"
-                                               id="money"
-                                               aria-describedby="number"
-                                               placeholder="Amount of Money"
-                                               name="money"
-                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button"
-                        data-dismiss="modal">Cancel
-                </button>
-                <button type="submit" class="btn btn-info" form="addmoney">Add
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Withdraw Money Modal-->
-<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog"
-     aria-labelledby="withdrawModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="withdrawModalLabel">Withdraw Money</h5>
-                <button class="close" type="button" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Are you sure to withdraw money?
-                <div class="card bg-light text-gray-800 shadow align-content-center">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                Balance
-                                <div class="h5 mb-0 font-weight-bold text-success">
-                                    {{ current_user.money }} &#8361;
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-light text-gray-800 shadow align-content-center">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <form class="money" method="post"
-                                      action="/account/withdraw" id="withdraw">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control"
-                                               id="money"
-                                               aria-describedby="number"
-                                               placeholder="Amount of Money"
-                                               name="money"
-                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button"
-                        data-dismiss="modal">Cancel
-                </button>
-                <button type="submit" class="btn btn-warning" form="withdraw">Withdraw
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Sell Modal-->
-<div class="modal fade" id="sellModal" tabindex="-1" role="dialog"
-     aria-labelledby="sellModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="sellModalLabel">Sell Coins</h5>
-                <button class="close" type="button" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">Are you sure to sell coins?
-                <div class="card bg-light text-gray-800 shadow align-content-center">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                Coins
-                                <div class="h5 mb-0 font-weight-bold text-success">
-                                    {{ current_user.coin }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-light text-gray-800 shadow align-content-center">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <form class="money" method="post"
-                                      action="/sell" id="sell">
-                                    <div class="form-group">
-                                        {% if current_user.is_authenticated and current_user.coin > 0 %}
-                                            <input type="text" class="form-control"
-                                                   id="coin"
-                                                   aria-describedby="number"
-                                                   placeholder="Number of Coins"
-                                                   name="coin"
-                                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                                            <input type="text" class="form-control"
-                                                   id="money"
-                                                   aria-describedby="number"
-                                                   placeholder="Amount of Money"
-                                                   name="money"
-                                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                                        {% else %}
-                                            <input type="text" class="form-control"
-                                                   id="coin"
-                                                   aria-describedby="number"
-                                                   placeholder="Number of Coins"
-                                                   name="coin" readonly>
-                                            <input type="text" class="form-control"
-                                                   id="money"
-                                                   aria-describedby="number"
-                                                   placeholder="Amount of Money"
-                                                   name="money"
-                                                   readonly>
-                                        {% endif %}
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button"
-                        data-dismiss="modal">Cancel
-                </button>
-                <button type="submit" class="btn btn-warning" form="sell">Sell
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Buy Modal-->
-{% for item in on_sale %}
-    <div class="modal fade" id="buyModal{{ item.id }}" tabindex="-1" role="dialog"
-         aria-labelledby="buyModalLabel"
+{% if current_user.is_authenticated %}
+    <div class="modal fade" id="addMoneyModal" tabindex="-1" role="dialog"
+         aria-labelledby="addMoneyModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="buyModalLabel">Buy Coins</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="addMoneyModalLabel">Add Money</h5>
+                    <button class="close" type="button" data-dismiss="modal"
+                            aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Are you sure to Buy Coins?
+                <div class="modal-body">Are you sure to add money?
                     <div class="card bg-light text-gray-800 shadow align-content-center">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     Balance
                                     <div class="h5 mb-0 font-weight-bold text-success">
-                                        {{ current_user.money }} &#8361;
+                                        {{ "{:,}".format(current_user.money) }} &#8361;
                                     </div>
                                 </div>
                             </div>
@@ -266,58 +77,54 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    Coins
-                                    <div class="h5 mb-0 font-weight-bold text-success">
-                                        {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
-                                        = {{ item.coin_nm*item.price }} &#8361;
-                                    </div>
+                                    <form class="addmoney" method="post"
+                                          action="/account/add-money" id="addmoney">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   id="money"
+                                                   aria-describedby="number"
+                                                   placeholder="Amount of Money"
+                                                   name="money"
+                                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel
+                    <button class="btn btn-secondary" type="button"
+                            data-dismiss="modal">Cancel
                     </button>
-                {% if current_user.is_authenticated %}
-                    {% if current_user.money > item.coin_nm * item.price %}
-                        <a class="btn btn-primary" href="/buy/{{ item.id }}">Buy</a>
-                    {% else %}
-                        <a class="btn btn-primary disabled">Buy</a>
-                    {% endif %}
-                {% endif %}
+                    <button type="submit" class="btn btn-info" form="addmoney">Add
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-{% endfor %}
-<!-- Update Modal -->
-{% for item in on_sale %}
-    <div class="modal fade" id="updateModal{{ item.id }}" tabindex="-1" role="dialog"
-         aria-labelledby="updateModalLabel"
+
+    <!-- Withdraw Money Modal-->
+    <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog"
+         aria-labelledby="withdrawModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">Update Info</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="withdrawModalLabel">Withdraw Money</h5>
+                    <button class="close" type="button" data-dismiss="modal"
+                            aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Are you sure to update the information?
+                <div class="modal-body">Are you sure to withdraw money?
                     <div class="card bg-light text-gray-800 shadow align-content-center">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     Balance
                                     <div class="h5 mb-0 font-weight-bold text-success">
-                                        {{ current_user.money }} &#8361;
-                                    </div>
-                                </div>
-                                <div class="col mr-2">
-                                    Coins Left
-                                    <div class="h5 mb-0 font-weight-bold text-primary">
-                                        {{ current_user.coin }}
+                                        {{ "{:,}".format(current_user.money) }} &#8361;
                                     </div>
                                 </div>
                             </div>
@@ -327,46 +134,89 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    Original
-                                    <div class="h5 mb-0 font-weight-bold text-success">
-                                        {{ item.coin_nm }} Coins &times; {{ item.price }} &#8361;
-                                        = {{ item.coin_nm*item.price }} &#8361;
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-light text-gray-800 shadow align-content-center">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    Update
                                     <form class="money" method="post"
-                                          action="/update-coin/{{ item.id }}" id="update-coin">
+                                          action="/account/withdraw" id="withdraw">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   id="money"
+                                                   aria-describedby="number"
+                                                   placeholder="Amount of Money"
+                                                   name="money"
+                                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button"
+                            data-dismiss="modal">Cancel
+                    </button>
+                    <button type="submit" class="btn btn-warning" form="withdraw">Withdraw
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sell Modal-->
+    <div class="modal fade" id="sellModal" tabindex="-1" role="dialog"
+         aria-labelledby="sellModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sellModalLabel">Sell Coins</h5>
+                    <button class="close" type="button" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure to sell coins?
+                    <div class="card bg-light text-gray-800 shadow align-content-center">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    Coins
+                                    <div class="h5 mb-0 font-weight-bold text-success">
+                                        {{ "{:,}".format(current_user.coin) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-light text-gray-800 shadow align-content-center">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <form class="money" method="post"
+                                          action="/sell" id="sell">
                                         <div class="form-group">
                                             {% if current_user.is_authenticated and current_user.coin > 0 %}
                                                 <input type="text" class="form-control"
                                                        id="coin"
                                                        aria-describedby="number"
-                                                       placeholder="{{ item.coin_nm }}"
+                                                       placeholder="Number of Coins"
                                                        name="coin"
                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                 <input type="text" class="form-control"
                                                        id="money"
                                                        aria-describedby="number"
-                                                       placeholder="{{ item.price }}"
+                                                       placeholder="Amount of Money"
                                                        name="money"
                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                             {% else %}
                                                 <input type="text" class="form-control"
                                                        id="coin"
                                                        aria-describedby="number"
-                                                       placeholder="{{ item.coin_nm }}"
+                                                       placeholder="Number of Coins"
                                                        name="coin" readonly>
                                                 <input type="text" class="form-control"
                                                        id="money"
                                                        aria-describedby="number"
-                                                       placeholder="{{ item.price }}"
+                                                       placeholder="Amount of Money"
                                                        name="money"
                                                        readonly>
                                             {% endif %}
@@ -378,18 +228,172 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel
+                    <button class="btn btn-secondary" type="button"
+                            data-dismiss="modal">Cancel
                     </button>
-                    <button type="submit" class="btn btn-danger" form="update-coin"
-                            onclick="javascript: form.action='/delete-coin/{{ item.id }}'">Delete
-                    </button>
-                    <button type="submit" class="btn btn-warning" form="update-coin">Update
+                    <button type="submit" class="btn btn-warning" form="sell">Sell
                     </button>
                 </div>
             </div>
         </div>
     </div>
-{% endfor %}
+    <!-- Buy Modal-->
+    {% for item in on_sale %}
+        <div class="modal fade" id="buyModal{{ item.id }}" tabindex="-1" role="dialog"
+             aria-labelledby="buyModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="buyModalLabel">Buy Coins</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure to Buy Coins?
+                        <div class="card bg-light text-gray-800 shadow align-content-center">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        Balance
+                                        <div class="h5 mb-0 font-weight-bold text-success">
+                                            {{ "{:,}".format(current_user.money) }} &#8361;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-light text-gray-800 shadow align-content-center">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        Coins
+                                        <div class="h5 mb-0 font-weight-bold text-success">
+                                            {{ "{:,}".format(item.coin_nm) }} Coins
+                                            &times; {{ "{:,}".format(item.price) }} &#8361;
+                                            = {{ "{:,}".format(item.coin_nm*item.price) }} &#8361;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel
+                        </button>
+                        {% if current_user.is_authenticated %}
+                            {% if current_user.money > item.coin_nm * item.price %}
+                                <a class="btn btn-primary" href="/buy/{{ item.id }}">Buy</a>
+                            {% else %}
+                                <a class="btn btn-primary disabled">Buy</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!-- Update Modal -->
+    {% for item in on_sale %}
+        <div class="modal fade" id="updateModal{{ item.id }}" tabindex="-1" role="dialog"
+             aria-labelledby="updateModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Update Info</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure to update the information?
+                        <div class="card bg-light text-gray-800 shadow align-content-center">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        Balance
+                                        <div class="h5 mb-0 font-weight-bold text-success">
+                                            {{ "{:,}".format(current_user.money) }} &#8361;
+                                        </div>
+                                    </div>
+                                    <div class="col mr-2">
+                                        Coins Left
+                                        <div class="h5 mb-0 font-weight-bold text-primary">
+                                            {{ "{:,}".format(current_user.coin) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-light text-gray-800 shadow align-content-center">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        Original
+                                        <div class="h5 mb-0 font-weight-bold text-success">
+                                            {{ "{:,}".format(item.coin_nm) }} Coins
+                                            &times; {{ "{:,}".format(item.price) }} &#8361;
+                                            = {{ "{:,}".format(item.coin_nm*item.price) }} &#8361;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-light text-gray-800 shadow align-content-center">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        Update
+                                        <form class="money" method="post"
+                                              action="/update-coin/{{ item.id }}" id="update-coin">
+                                            <div class="form-group">
+                                                {% if current_user.is_authenticated and current_user.coin > 0 %}
+                                                    <input type="text" class="form-control"
+                                                           id="coin"
+                                                           aria-describedby="number"
+                                                           placeholder="{{ "{:,} Coins".format(item.coin_nm) }}"
+                                                           name="coin"
+                                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                                    <input type="text" class="form-control"
+                                                           id="money"
+                                                           aria-describedby="number"
+                                                           placeholder="{{ "{:,} ₩".format(item.price) }}"
+                                                           name="money"
+                                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                                {% else %}
+                                                    <input type="text" class="form-control"
+                                                           id="coin"
+                                                           aria-describedby="number"
+                                                           placeholder="{{ "{:,} Coins".format(item.coin_nm) }}"
+                                                           name="coin" readonly>
+                                                    <input type="text" class="form-control"
+                                                           id="money"
+                                                           aria-describedby="number"
+                                                           placeholder="{{ "{:,} ₩".format(item.price) }}"
+                                                           name="money"
+                                                           readonly>
+                                                {% endif %}
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel
+                        </button>
+                        <button type="submit" class="btn btn-danger" form="update-coin"
+                                onclick="javascript: form.action='/delete-coin/{{ item.id }}'">Delete
+                        </button>
+                        <button type="submit" class="btn btn-warning" form="update-coin">Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
 <script src="{{ url_for('static', filename='/vendor/chart.js/Chart.min.js') }}"></script>
 <script type="text/javascript">
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -425,7 +429,7 @@
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: {{ xlabels }},
+            labels: {{ xlabels|safe }},
             datasets: [{
                 label: "Currency",
                 lineTension: 0.3,
@@ -455,14 +459,14 @@
             scales: {
                 xAxes: [{
                     time: {
-                        unit: 'date'
+                        unit: 'time'
                     },
                     gridLines: {
                         display: false,
                         drawBorder: false
                     },
                     ticks: {
-                        maxTicksLimit: 7
+                        maxTicksLimit: 10
                     }
                 }],
                 yAxes: [{

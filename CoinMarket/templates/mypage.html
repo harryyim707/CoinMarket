@@ -6,84 +6,86 @@
 
 {% block content %}
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">{{ current_user.usr_nm }}'s Page</h1>
-                <div class="row">
-                    <!-- My Balance -->
-                    <div class="col col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            My Balance
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.money }}
-                                            &#8361;
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-wallet fa-2x text-gray-300"></i>
-                                    </div>
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">{{ current_user.usr_nm }}'s Page</h1>
+        <div class="row">
+            <!-- My Balance -->
+            <div class="col col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    My Balance
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "{:,}".format(current_user.money) }}
+                                    &#8361;
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- My Coins -->
-                    <div class="col col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            My Coins
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ current_user.coin }}</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-wallet fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- My History Table -->
-                <div class="card shadow mb-4">
-                        <div class="card-header py-3" onclick="location.href='/myhistory'" style="cursor:pointer;">
-                            <h6 class="m-0 font-weight-bold text-primary">My History</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Coins</th>
-                                            <th>Price(&#8361;/Coin)</th>
-                                            <th>Seller</th>
-                                            <th>Buyer</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for history, coin_nm, price in history_list %}
-                                    <tr>
-                                        <td>{{ history.id }}</td>
-                                        <td>{{ coin_nm }}</td>
-                                        <td>{{ price }}&#8361;</td>
-                                        <td>{{ history.seller_id }}</td>
-                                        <td>{{ history.buyer_id }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+            </div>
+            <!-- My Coins -->
+            <div class="col col-md-6 mb-4" onclick="location.href='/account'" style="cursor:pointer;">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    My Coins
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ "{:,}".format(current_user.coin) }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-coins fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
-
+                </div>
             </div>
-            <!-- /.container-fluid -->
+        </div>
+        <!-- My History Table -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3" onclick="location.href='/myhistory'" style="cursor:pointer;">
+                <h6 class="m-0 font-weight-bold text-primary">My History</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Coins</th>
+                            <th>Price(&#8361;/Coin)</th>
+                            <th>Seller</th>
+                            <th>Buyer</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for history, coin_nm, price in history_list %}
+                            <tr>
+                                <td>{{ history.id }}</td>
+                                <td>{{ "{:,}".format(coin_nm) }}</td>
+                                <td>{{ "{:,}".format(price) }}&#8361;</td>
+                                <td>{{ history.seller_id }}</td>
+                                <td>{{ history.buyer_id }}</td>
+                                <td>{{ history.datetime.strftime("%d %b %Y %H:%M:%S") }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
 {% endblock %}
