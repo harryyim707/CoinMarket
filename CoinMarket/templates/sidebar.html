@@ -14,7 +14,6 @@
     <script type="text/javascript">
         $(function(){
             $('.sidebar').children('.active').removeClass('active');
-            console.log($('a[href^="/'+location.pathname.split("/")[1]+'"]'));
             $('.sidebar a[href^="/'+location.pathname.split("/")[1]+'"]').parent().addClass('active');
         })
     </script>
