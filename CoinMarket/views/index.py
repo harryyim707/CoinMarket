@@ -15,6 +15,8 @@ def index():
         sell = Sell.query.filter_by(id = last.sell_id).first()
         latest_price = sell.price
     recent_coin = Sell.query.order_by(Sell.id.desc()).first()
+    if not recent_coin:
+        recent_coin = Sell(id=0, seller_id=0, coin_nm=0, price=0, sold_out=0)
     recent_price = 0
     if recent_coin is not None:
         recent_coin, recent_price = recent_coin, recent_coin.price
