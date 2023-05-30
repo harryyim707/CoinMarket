@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fa-solid fa-bitcoin-sign"></i>
         </div>
@@ -11,10 +11,17 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
+    <script type="text/javascript">
+        $(function(){
+            $('.sidebar').children('.active').removeClass('active');
+            console.log($('a[href^="/'+location.pathname.split("/")[1]+'"]'));
+            $('.sidebar a[href^="/'+location.pathname.split("/")[1]+'"]').parent().addClass('active');
+        })
+    </script>
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="/">
+    <li class="nav-item">
+        <a class="nav-link" href="/index">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -40,9 +47,9 @@
 
         <!-- Nav Item - My Page Menu -->
         <li class="nav-item">
-        <a class="nav-link" href="/my-page">
-            <i class="fa-solid fa-user"></i>
-            <span>My Page</span></a>
+            <a class="nav-link" href="/my-page">
+                <i class="fa-solid fa-user"></i>
+                <span>My Page</span></a>
         </li>
 
         <!-- Nav Item - Account -->
