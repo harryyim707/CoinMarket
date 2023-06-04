@@ -75,8 +75,16 @@
                                 <td>{{ history.id }}</td>
                                 <td>{{ "{:,}".format(coin_nm) }}</td>
                                 <td>{{ "{:,}".format(price) }}&#8361;</td>
-                                <td>{{ history.seller_id }}</td>
-                                <td>{{ history.buyer_id }}</td>
+                                {% if current_user.usr_id == history.seller_id %}
+                                    <td><b>ME!</b></td>
+                                {% else %}
+                                    <td>{{ history.seller_id }}</td>
+                                {% endif %}
+                                {% if current_user.usr_id == history.buyer_id %}
+                                    <td><b>ME!</b></td>
+                                {% else %}
+                                    <td>{{ history.buyer_id }}</td>
+                                {% endif %}
                                 <td>{{ history.datetime.strftime("%d %b %Y %H:%M:%S") }}</td>
                             </tr>
                         {% endfor %}
